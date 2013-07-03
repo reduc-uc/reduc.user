@@ -25,25 +25,26 @@ def mail(entry):
 def zimbraMailDeliveryAddress(entry):
     return mail(entry)
 
+B_HOST = 'b.correo.uc.edu.ve'
 C_HOST = 'c.correo.uc.edu.ve'
 D_HOST = 'd.correo.uc.edu.ve'
 E_HOST = 'e.correo.uc.edu.ve'
-F_HOST = 'e.correo.uc.edu.ve' # TODO: Temporalmente apunta a e.correo
-                              #       hasta incorporar el nuevo servidor.
+F_HOST = 'f.correo.uc.edu.ve'
+
 MAILHOST_FROM_STUDENT_DEPENDENCY = {
     'derecho'     : D_HOST,
     'direccionsuperior' : C_HOST,
     'educacion'   : D_HOST,
     'externo'     : C_HOST,
-    'faces'       : E_HOST,
-    'facesna'     : E_HOST,
+    'faces'       : B_HOST,
+    'facesna'     : B_HOST,
     'facyt'       : D_HOST,
-    'fcs'         : E_HOST,
-    'fcsna'       : E_HOST,
+    'fcs'         : B_HOST,
+    'fcsna'       : B_HOST,
     'fundacion'   : C_HOST,
     'ingenieria'  : C_HOST,
     'odontologia' : D_HOST,
-    'postgrado'   : E_HOST,
+    'postgrado'   : B_HOST,
 }
 
 def zimbraMailHost(entry):
