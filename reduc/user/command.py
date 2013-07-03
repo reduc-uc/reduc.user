@@ -85,7 +85,7 @@ class New(Command):
 
     def _new_uid(self, entry):
         base_uid = self._base_uid(entry)
-        uids = [base_uid] + [base_uid + str(x) for x in range(1000)]
+        uids = [base_uid] + [base_uid + str(x) for x in range(1,1000)]
 
         for uid in uids:
             if self._is_free('uid', uid):
