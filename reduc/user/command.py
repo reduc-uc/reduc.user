@@ -97,6 +97,7 @@ class New(Command):
         gn = entry.first('gn', '') or entry.first('givenName', '')
         sn = entry.first('sn', '') or entry.first('surname', '')
         base_uid = (gn[0] if len(gn) else '') + sn
+        base_uid = base_uid.replace(' ', '')
         return base_uid
 
     def _new_zimbraId(self, now=None):
