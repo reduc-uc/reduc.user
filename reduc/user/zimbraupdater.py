@@ -28,6 +28,7 @@ def zimbraMailDeliveryAddress(entry):
 B_HOST = 'b.correo.uc.edu.ve'
 C_HOST = 'c.correo.uc.edu.ve'
 D_HOST = 'd.correo.uc.edu.ve'
+#D_HOST = 'b.correo.uc.edu.ve' # XXX: mientras d esté caído
 E_HOST = 'e.correo.uc.edu.ve'
 F_HOST = 'f.correo.uc.edu.ve'
 
