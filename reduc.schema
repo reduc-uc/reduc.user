@@ -1,0 +1,449 @@
+#  Esquema para el manejo de cuentas de usuarios de la universidad de Carabobo
+#
+# Nro. IANA asignado a la UC: 12541
+#
+# 12541.1   :  ID para la definicion de cuentas de usuario para la UC
+# 12541.1.1 :  Atributos
+# 12541.1.2 :  Clases
+
+#    Nuevos Atributos
+attributetype ( 12541.1.1.100 NAME ( 'accClass' 'accountClassification' )
+    DESC 'Class of account: [type,dep1[,dep2[,dep3 ...]]]'
+    SUP name )
+
+attributetype ( 12541.1.1.101 NAME ( 'dateCreation' )
+    DESC 'Date of creation of this account'
+    SINGLE-VALUE
+    SUP name )
+
+attributetype ( 12541.1.1.102 NAME ( 'dateExpiration' )
+    DESC 'Date of expiration of this account'
+    SINGLE-VALUE
+    SUP name )
+
+attributetype ( 12541.1.1.103 NAME ( 'uniqueIdentifierResponsable' )
+    DESC 'uniqueIdentifier for this account responsable'
+    SINGLE-VALUE
+    SUP name )
+
+attributetype ( 12541.1.1.104 NAME ( 'adminAction' 'uceduveAdminAction' )
+    DESC 'Actions an administrator can do'
+    SUP name )
+
+attributetype ( 12541.1.1.105 NAME ( 'adminDomain' 'uceduveAdminDomainNew' )
+    DESC 'Domain of users an administrator can act upon'
+    SUP name )
+
+
+#    Nuevas  ObjectClasses
+objectclass  ( 12541.1.2.10 NAME 'uceduveUser' 
+    SUP top AUXILIARY
+    DESC 'Cuenta de usuario de la Universidad de Carabobo'
+    MUST ( uid $ sn $ gn $ uniqueIdentifier ) 
+    MAY  ( accountClassification $
+           userPassword $ telephoneNumber $
+           dateCreation $ dateExpiration ))
+
+objectclass  (12541.1.2.11 NAME 'uceduveDependency'
+    SUP top AUXILIARY
+    DESC 'Cuenta para dependencias de la Universidad de Carabobo'
+    MUST ( uid $ sn )
+    MAY  ( accountClassification $
+           userPassword $
+           uniqueIdentifierResponsable $
+           telephoneNumber $
+           dateCreation $ dateExpiration ))
+
+objectclass  ( 12541.1.2.12 NAME 'uceduveWebUser' 
+    SUP top AUXILIARY
+    DESC 'Cuenta de navegacion de la Universidad de Carabobo'
+    )
+
+objectclass  ( 12541.1.2.13 NAME 'uceduveAdminUser' 
+    SUP top AUXILIARY
+    DESC 'Administrador de cuenta de la Universidad de Carabobo'
+    MAY ( adminAction $ adminDomain )
+    )
+
+
+
+
+# ============================================================
+#
+#  Atributos para cuentas de Usuario de la UC
+#
+# ============================================================
+attributetype ( 12541.1.1.1 NAME 'uceduveApellido1'
+        DESC 'Primer apellido del usuario'
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        EQUALITY caseIgnoreIA5Match
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.2 NAME 'uceduveApellido2'
+        DESC 'Segundo apellido del usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.3 NAME 'uceduveNombre1'
+        DESC 'Primer nombre del usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.4 NAME 'uceduveNombre2'
+        DESC 'Segundo nombre del usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.5 NAME 'uceduveDependencia1'
+        DESC 'Dependencia a la que esta adscrito el usuario (normalmente facultad)'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.6 NAME 'uceduveDependencia2'
+        DESC 'Segunda dependencia a la que esta adscrito el usuario (normalmente escuela)'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.7 NAME 'uceduveDependencia3'
+        DESC 'Tercera depencia a la que esta adscrito el usuario (normalmente dpto.)'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.8 NAME 'uceduveDependencia4'
+        DESC 'Cuarta depencia a la que esta adscrito el usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.9 NAME 'uceduveUsuarioTipo'
+        DESC 'Dependencia a la que esta adscrito el usuario (normalmente facultad)'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+# Este atributo no es usado. Puede establecerse un mapeo directo entre
+# uceduveDependencia1 y uceduveUsuarioUbicacion
+attributetype ( 12541.1.1.10 NAME 'uceduveUsuarioUbicacion'
+        DESC 'Dependencia a la que esta adscrito el usuario (normalmente facultad)'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.11 NAME 'uceduveUsuarioPrivilegio'
+        DESC 'Dependencia a la que esta adscrito el usuario (normalmente facultad)'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.12 NAME 'uceduveCI'
+        DESC 'CI, numero de pasaporte o equivalente del usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.13 NAME 'uceduveTelefono'
+        DESC 'Telefono del usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.14 NAME 'uceduveTitulo'
+        DESC 'Titulo del usuario (Prof., Ing., Lic.)'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.15 NAME 'uceduveHost'
+        DESC 'Host donde el usuario tiene su cuenta principal'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.16 NAME 'uceduveFechaCreacion'
+        DESC 'Fecha de creacion de la cuenta'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.17 NAME 'uceduveFechaExpiracion'
+        DESC 'Fecha de expiracion de la cuenta'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.18 NAME 'uceduveQuota'
+        DESC 'Cuota de disco asignada al usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.19 NAME 'uceduveQuotaHard'
+        DESC 'Limite duro de cuota de disco asignada al usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.20 NAME 'uceduveDescripcion'
+        DESC 'Descripcion de esta cuenta'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.21 NAME 'uceduveStatus'
+        DESC 'Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.22 NAME 'uceduveStatusMotive'
+        DESC 'Motivo del estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.23 NAME 'uceduveStatusLevel'
+        DESC 'Nivel del Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.24 NAME 'uceduvePasswdLastChange'
+        DESC 'Fecha de expiracion de la cuenta'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.25 NAME 'uceduveComentario'
+        DESC 'Comentarios sobre esta cuenta'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26)
+
+
+# ============================================================
+#
+#  Atributos para cuentas web
+#
+# ============================================================
+attributetype ( 12541.1.1.26 NAME 'uceduveWebPassword'
+        DESC 'Password de navegacion'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE)
+
+attributetype ( 12541.1.1.27 NAME 'uceduveWebSource'
+        DESC 'Direccion IP -o regexp- desde la cual esta cuenta web puede navegar'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( 12541.1.1.28 NAME 'uceduveWebSchedule'
+        DESC 'Horario de navegacion'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( 12541.1.1.29 NAME 'uceduveWebQuotaDaily'
+        DESC 'Cuota de disco asignada al usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.30 NAME 'uceduveWebQuotaWeekly'
+        DESC 'Cuota de disco asignada al usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.31 NAME 'uceduveWebQuotaMonthly'
+        DESC 'Cuota de disco asignada al usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.32 NAME 'uceduveWebStatus'
+        DESC 'Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.33 NAME 'uceduveWebStatusMotive'
+        DESC 'Motivo del estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.34 NAME 'uceduveWebStatusLevel'
+        DESC 'Nivel del Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+
+# ============================================================
+#
+#  Atributos para cuentas de correo
+#
+# ============================================================
+
+# Se le puso el nombre mail en vez de uceduveMail para asegurar
+# maxima compatibilidad con los clientes de correo que hagan uso
+# del servicio LDAP
+attributetype ( 12541.1.1.35 NAME 'uceduveMail'
+        DESC 'Direccion de correo'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE)
+
+# Se le puso el nombre maildrop para que fuese compatible con
+# el MDA maildrop que exige este nombre para el despacho
+attributetype ( 12541.1.1.36 NAME 'maildrop'
+        DESC 'RFC822 Mailbox - mail alias'
+        EQUALITY caseIgnoreIA5Match
+        SUBSTR caseIgnoreIA5SubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+attributetype ( 12541.1.1.37 NAME 'quota'
+        DESC 'Cuota de correo'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE)
+
+attributetype ( 12541.1.1.38 NAME 'uceduveMailStatus'
+        DESC 'Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.39 NAME 'uceduveMailStatusMotive'
+        DESC 'Motivo del estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.40 NAME 'uceduveMailStatusLevel'
+        DESC 'Nivel del Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.50 NAME 'uceduveMailForward'
+        DESC 'Direccion de correo para forward'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+# ============================================================
+#
+#  Atributos para los Administradores
+#
+# ============================================================
+attributetype ( 12541.1.1.41 NAME 'uceduveAdminDomain'
+        DESC 'Dominio de trabajo del Administrador'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE)
+
+attributetype ( 12541.1.1.42 NAME 'uceduveAdminLevel'
+        DESC 'Nivel de jerarquia del Administrador'
+        EQUALITY integerMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+        SINGLE-VALUE)
+
+attributetype ( 12541.1.1.43 NAME 'uceduveAdminPermission'
+        DESC 'Nivel de jerarquia del Administrador'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( 12541.1.1.44 NAME 'uceduveAdminPhoto'
+        DESC 'Foto del Administrador'
+        EQUALITY octetStringMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.40
+        SINGLE-VALUE )
+
+#attributetype ( 12541.1.1.45 NAME 'objectClass'
+#        DESC 'Tipos de cuentas del usuario'
+#        EQUALITY caseIgnoreIA5Match
+#        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( 12541.1.1.46 NAME 'uceduveAdminStatus'
+        DESC 'Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.47 NAME 'uceduveAdminStatusMotive'
+        DESC 'Motivo del estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+attributetype ( 12541.1.1.48 NAME 'uceduveAdminStatusLevel'
+        DESC 'Nivel del Estatus de la cuenta de usuario'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+        SINGLE-VALUE )
+
+
+
+attributetype ( 12541.1.1.49 NAME 'uceduveSubdependencia'
+        DESC 'Listado de las subdependencias que pueden existir bajo este nodo'
+        EQUALITY caseIgnoreIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+
+
+# ============================================================
+# ============================================================
+#
+#    ObjectClasses  Obsoletas
+#
+# ============================================================
+# ============================================================
+
+objectclass  ( 12541.1.2.1 NAME 'uceduveAccount'
+    DESC 'Cuenta de usuario Unix para la Universidad de Carabobo'
+    MUST ( uid $ userPassword $
+           uceduveApellido1 $ uceduveNombre1 $ uceduveDependencia1 $
+           uceduveDependencia2 $ uceduveUsuarioTipo $
+           uceduveUsuarioPrivilegio $ uceduveCI $ uceduveHost $
+           uceduveFechaCreacion $ uceduveFechaExpiracion $
+           uceduveQuota $ uceduveQuotaHard $ uceduveStatus $
+           uceduvePasswdLastChange $ objectClass)
+    MAY  ( uidNumber $ gidNumber $ uceduveApellido2 $ uceduveNombre2 $
+           uceduveDependencia3 $ uceduveDependencia4 $
+           uceduveTelefono $ uceduveTitulo $ uceduveUsuarioUbicacion $
+           uceduveStatusMotive $ uceduveStatusLevel $ homeDirectory $
+           uceduveComentario ))
+
+
+objectclass  ( 12541.1.2.2 NAME 'uceduveWebAccount' SUP top AUXILIARY
+    DESC 'Cuenta de usuario para la navegacion web via proxy'
+    MUST ( uceduveWebStatus)
+    MAY  ( uceduveWebPassword  $ uceduveWebSource $ uceduveWebSchedule $
+           uceduveWebQuotaDaily $ uceduveWebQuotaWeekly $
+           uceduveWebQuotaMonthly $ uceduveWebStatusMotive $
+           uceduveWebStatusLevel))
+
+
+objectclass ( 12541.1.2.3 NAME 'uceduveMailAccount' SUP top AUXILIARY
+    DESC 'Cuenta de usuario para el correo electronico'
+    MUST ( mail $ maildrop $ quota $ uceduveMailStatus)
+    MAY  ( uceduveMailStatusMotive $ uceduveMailStatusLevel $ uceduveMailForward ))
+
+
+objectclass  ( 12541.1.2.4 NAME 'uceduveAdminAccount' SUP top AUXILIARY
+    DESC 'Cuenta de Administrador del UserManager'
+    MUST ( uceduveAdminDomain $ uceduveAdminLevel $
+        uceduveAdminPermission $ uceduveAdminStatus)
+    MAY  ( uceduveAdminPhoto $ uceduveAdminStatusMotive $
+        uceduveAdminStatusLevel))
+
+objectclass ( 12541.1.2.5 NAME 'uceduveUnit' SUP top AUXILIARY
+        DESC 'Subdepependencia de las unidades en la Universidad de Carabobo'
+        MAY ( uceduveSubdependencia ))
+
+
+
